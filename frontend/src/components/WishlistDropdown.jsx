@@ -36,7 +36,7 @@ const WishlistDropdown = () => {
       {/* Wishlist Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
+        className="relative p-2 hover:bg-gray-100 mt-2 rounded-full transition-colors duration-300"
         aria-label="Wishlist"
       >
         <Heart className="w-5 h-5 text-black" />

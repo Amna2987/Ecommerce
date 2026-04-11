@@ -51,8 +51,8 @@ const Header = () => {
                   key={item.name}
                   to={item.path}
                   className={`font-medium transition-colors duration-300 relative ${location.pathname === item.path
-                      ? 'text-black'
-                      : 'text-gray-600 hover:text-black'
+                    ? 'text-black'
+                    : 'text-gray-600 hover:text-black'
                     }`}
                 >
                   {item.name}
@@ -69,8 +69,8 @@ const Header = () => {
                 <Link
                   to="/dashboard"
                   className={`font-medium transition-colors duration-300 relative ${location.pathname === '/dashboard'
-                      ? 'text-black'
-                      : 'text-gray-600 hover:text-black'
+                    ? 'text-black'
+                    : 'text-gray-600 hover:text-black'
                     }`}
                 >
                   Dashboard
@@ -91,55 +91,59 @@ const Header = () => {
                 <Search className="w-5 h-5 text-black" />
               </button> */}
 
-              {/* Wishlist Dropdown */}
-              <WishlistDropdown />
+              <div className='hidden lg:flex'>
 
-              {/* User Icon */}
-              {isLoggedIn ? (
-                <div className="flex items-center space-x-4">
-                  <Link
-                    to="/dashboard"
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
-                    title="Go to Dashboard"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium">
-                      <User />
-                    </div>
-                  </Link>
+                {/* Wishlist Dropdown */}
+                <WishlistDropdown />
+
+                {/* User Icon */}
+                {isLoggedIn ? (
+                  <div className="flex items-center space-x-4">
+                    <Link
+                      to="/dashboard"
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
+                      title="Go to Dashboard"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium">
+                        <User />
+                      </div>
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
+                      title="Logout"
+                    >
+                      <LogOut className="w-5 h-5 text-black" />
+                    </button>
+                  </div>
+                ) : (
                   <button
-                    onClick={handleLogout}
+                    onClick={() => setIsAuthModalOpen(true)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
-                    title="Logout"
+                    title="Login / Signup"
                   >
-                    <LogOut className="w-5 h-5 text-black" />
+                    <User className="w-5 h-5 text-black" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
-                  title="Login / Signup"
-                >
-                  <User className="w-5 h-5 text-black" />
-                </button>
-              )}
-
-              {/* Cart Icon */}
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
-              >
-                <ShoppingBag className="w-5 h-5 text-black" />
-                {cartItemCount > 0 && (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"
-                  >
-                    {cartItemCount > 9 ? '9+' : cartItemCount}
-                  </motion.span>
                 )}
-              </button>
+
+                {/* Cart Icon */}
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
+                >
+                  <ShoppingBag className="w-5 h-5 text-black" />
+                  {cartItemCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"
+                    >
+                      {cartItemCount > 9 ? '9+' : cartItemCount}
+                    </motion.span>
+                  )}
+                </button>
+              </div>
+
 
               <button
                 className="md:hidden p-2 text-black"
@@ -165,8 +169,8 @@ const Header = () => {
                       key={item.name}
                       to={item.path}
                       className={`block py-3 px-4 font-medium transition-colors duration-300 ${location.pathname === item.path
-                          ? 'bg-black text-white'
-                          : 'text-black hover:bg-gray-100'
+                        ? 'bg-black text-white'
+                        : 'text-black hover:bg-gray-100'
                         }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -177,8 +181,8 @@ const Header = () => {
                     <Link
                       to="/dashboard"
                       className={`block py-3 px-4 font-medium transition-colors duration-300 ${location.pathname === '/dashboard'
-                          ? 'bg-black text-white'
-                          : 'text-black hover:bg-gray-100'
+                        ? 'bg-black text-white'
+                        : 'text-black hover:bg-gray-100'
                         }`}
                       onClick={() => setIsMenuOpen(false)}
                     >

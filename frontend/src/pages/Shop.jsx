@@ -57,37 +57,37 @@ const Shop = () => {
 
 
   // ===== STATE → URL =====
-    useEffect(() => {
-      const params = new URLSearchParams();
-      
-      
-      category.forEach((cat) => {
-        params.append("category", cat);
-      });
-  
-      if (sorting) params.set("sorting", sorting);
-      if (search) params.set("search", search);
-      if (page > 1) params.set("page", page);
-  
-      params.set("minPrice", minPrice);
-      params.set("maxPrice", maxPrice);
-      setSearchParams(params);
-  
-    }, [category, sorting, page,minPrice, maxPrice,search, setSearchParams]);
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+
+    category.forEach((cat) => {
+      params.append("category", cat);
+    });
+
+    if (sorting) params.set("sorting", sorting);
+    if (search) params.set("search", search);
+    if (page > 1) params.set("page", page);
+
+    params.set("minPrice", minPrice);
+    params.set("maxPrice", maxPrice);
+    setSearchParams(params);
+
+  }, [category, sorting, page, minPrice, maxPrice, search, setSearchParams]);
 
   const toggleCategory = (category) => {
     // console.log('cate', category);
-    
+
     // if (category === 'All Categories') {
     //   setCategory([])
     // }
     // else {
 
-      setCategory((prev) =>
-        prev.includes(category)
-          ? prev.filter((c) => c !== category)
-          : [...prev, category]
-      );
+    setCategory((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
     // }
     setPage(1);
   };
@@ -126,12 +126,12 @@ const Shop = () => {
     setPage(num)
     setActiveBtn(num)
   }
-   const handleNext = () => {
+  const handleNext = () => {
     if (page >= pageno) {
       setPage(1)
-       setActiveBtn(1)
+      setActiveBtn(1)
     }
-    else{
+    else {
 
       setPage(page + 1)
       setActiveBtn(page + 1)
@@ -143,7 +143,7 @@ const Shop = () => {
 
     setPage(page - 1)
     setActiveBtn(page - 1)
-    if(page <= 1) {
+    if (page <= 1) {
       setPage(1)
       setActiveBtn(1)
     }
@@ -163,103 +163,96 @@ const Shop = () => {
       <div className="max-width section-padding py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
-          <motion.aside
-            initial={false}
-            animate={{ width: showFilters ? '300px' : '200px' }}
-            className="lg:w-1/4 overflow-hidden lg:overflow-visible"
-          >
-            <div className="lg:sticky lg:top-24">
-              {/* Mobile Filter Toggle */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden w-full flex items-center justify-between p-4 bg-black text-white mb-4 rounded-lg"
+          <motion.aside className="w-full lg:w-1/4">
+  <div className="lg:sticky lg:top-24">
+
+    {/* Mobile Filter Toggle */}
+    <button
+      onClick={() => setShowFilters(!showFilters)}
+      className="lg:hidden w-full flex items-center justify-between p-4 bg-black text-white mb-4 rounded-lg"
+    >
+      <span className="flex items-center gap-2">
+        <Filter className="w-5 h-5" />
+        Filters
+      </span>
+      <ChevronDown
+        className={`w-5 h-5 transition-transform ${
+          showFilters ? 'rotate-180' : ''
+        }`}
+      />
+    </button>
+
+    {/* Filters */}
+    <div className={`lg:block ${showFilters ? 'block' : 'hidden'}`}>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white p-6 rounded-lg border border-gray-200 space-y-6"
+      >
+
+        {/* Search */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Search</h3>
+          <input
+            type="text"
+            name="search"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            placeholder="Search product"
+            className="w-full p-2 bg-gray-200 rounded-lg"
+          />
+        </div>
+
+        {/* Categories */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Categories</h3>
+          <div className="space-y-2 max-h-60 overflow-y-auto">
+            {categories.map((ele, idx) => (
+              <label
+                key={idx}
+                className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded"
               >
-                <span className="flex items-center gap-2">
-                  <Filter className="w-5 h-5" />
-                  Filters
-                </span>
-                <ChevronDown className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-              </button>
+                <input
+                  type="checkbox"
+                  checked={category.includes(ele)}
+                  onChange={() => toggleCategory(ele)}
+                  className="w-4 h-4 text-black rounded border-gray-300"
+                />
+                <span className="text-gray-700">{ele}</span>
+              </label>
+            ))}
+          </div>
+        </div>
 
-              <AnimatePresence>
-                {(showFilters || window.innerWidth >= 1024) && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="bg-white p-6 rounded-lg border border-gray-200 space-y-6"
-                  >
-                    {/* search*/}
-                    <div>
-                      <h3 className="font-semibold text-lg mb-4">Search</h3>
-                      <div className="space-y-4">
-                        <input
-                          type="text"
-                          name='search'
-                          onChange={(e) => setSearch(e.target.value)}
-                          value={search}
-                          placeholder='search product'
-                          className="w-full p-2 bg-gray-200 rounded-lg"
-                        />
-                      </div>
-                    </div>
+        {/* Price Range */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Price Range</h3>
+          <div className="space-y-3">
+            <input
+              type="number"
+              name="minPrice"
+              onChange={(e) => setminPrice(e.target.value)}
+              value={minPrice}
+              placeholder="Min Price"
+              className="w-full p-2 bg-gray-200 rounded-lg"
+            />
 
-                    {/* Categories */}
-                    <div>
-                      <h3 className="font-semibold text-lg mb-4">Categories</h3>
-                      <div className="space-y-2">
-                        {categories.map((ele,idx) => (
-                          <label
-                            key={idx}
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={category.includes(ele)}
-                              onChange={() => toggleCategory(ele)}
-                              className="w-4 h-4 text-black rounded border-gray-300 focus:ring-black"
-                              value={ele}
-                              name='categories'
-                            />
-                            <span className="text-gray-700">{ele}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
+            <input
+              type="number"
+              name="maxPrice"
+              onChange={(e) => setmaxPrice(e.target.value)}
+              value={maxPrice}
+              placeholder="Max Price"
+              className="w-full p-2 bg-gray-200 rounded-lg"
+            />
+          </div>
+        </div>
 
-                    {/* Price Range */}
-                    <div>
-                      <h3 className="font-semibold text-lg mb-4">Price Range</h3>
-                      <div className="space-y-4">
-                        <div className="flex justify-between">
-                          {/* <span>$0</span>
-                          <span>$1000</span> */}
-                        </div>
-                        
-                         <input
-                          type="number"
-                          name='minPrice'
-                          onChange={(e) => setminPrice(e.target.value)}
-                          value={minPrice}
-                          placeholder={minPrice}
-                          className="w-full p-2 bg-gray-200 rounded-lg"
-                        />
-                        to
-                         <input
-                          type="number"
-                          name='maxPrice'
-                          onChange={(e) => setmaxPrice(e.target.value)}
-                          value={maxPrice}
-                          placeholder={maxPrice}
-                          className="w-full p-2 bg-gray-200 rounded-lg"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.aside>
+      </motion.div>
+    </div>
+
+  </div>
+</motion.aside>
 
           {/* Products Grid */}
           <div className="flex-1">
@@ -329,24 +322,41 @@ const Shop = () => {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center mt-12">
-              <nav className="flex items-center gap-2">
-                <button onClick={handlePrevious} className='btn-primary items-center justify-center gap-3 bg-white border-black border text-black hover:bg-black hover:text-white'>Previous</button>
-                {Array(pageno).fill(1).map((page, idx) => {
-                  return (
+            <div className="flex justify-center mt-12 px-2">
+              <nav className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
 
-                    <button onClick={(e) => handleClick(idx + 1)}
+                {/* Previous */}
+                <button
+                  onClick={handlePrevious}
+                  className="px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base border border-black text-black bg-white rounded-md hover:bg-black hover:text-white transition"
+                >
+                  Previous
+                </button>
 
-                      className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${activeBtn === idx + 1
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black border border-gray-200 hover:border-black'
+                {/* Page Numbers */}
+                <div className="flex flex-wrap justify-center gap-2">
+                  {Array(pageno).fill(1).map((page, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleClick(idx + 1)}
+                      className={`w-8 h-8 sm:w-10 sm:h-10 text-sm sm:text-base rounded-lg font-medium transition-all duration-300 ${activeBtn === idx + 1
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black border border-gray-200 hover:border-black'
                         }`}
                     >
                       {idx + 1}
                     </button>
-                  )
-                })}
-                <button onClick={handleNext} className='btn-primary items-center justify-center gap-3 bg-white border-black border text-black hover:bg-black hover:text-white'>Next</button>
+                  ))}
+                </div>
+
+                {/* Next */}
+                <button
+                  onClick={handleNext}
+                  className="px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base border border-black text-black bg-white rounded-md hover:bg-black hover:text-white transition"
+                >
+                  Next
+                </button>
+
               </nav>
             </div>
           </div>

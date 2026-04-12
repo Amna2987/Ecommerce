@@ -15,7 +15,7 @@ const Header = () => {
   const [isWishlistDropdownOpen, setIsWishlistDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout, accessToken } = useContext(AuthContext);
+  const { logout, accessToken,userData } = useContext(AuthContext);
   const { cartItemCount, wishlistCount, setWishlistItems, setCartItems } = useProductContext();
 
   const isLoggedIn = Boolean(accessToken);

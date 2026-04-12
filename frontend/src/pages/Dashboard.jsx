@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { AuthServices } from '../services/auth.service';
 
 const Dashboard = () => {
-  const { accessToken, userData, setUserData, updateUserProfile } = useContext(AuthContext);
+  const { accessToken, userData, setUserData, updateUserProfile, logout } = useContext(AuthContext);
   const { cartItems, cartTotal, OrderDetail, getUserOrderData, userOrders, wishlistItems } = useContext(ProductContext);
   const navigate = useNavigate();
 
@@ -132,8 +132,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     console.log('Logout clicked');
-    // You would typically call a logout function from AuthContext
-    // logout();
+    logout();
   };
 
   // Format date for display

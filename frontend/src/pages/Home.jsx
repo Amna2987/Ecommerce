@@ -109,15 +109,14 @@ const Home = () => {
     
   return (
     <div className="animate-fade-in ">
-      {/* Hero Banner with white header */}
+      {/* Hero Banner */}
       <section className="relative flex flex-col justify-center items-center h-screen pt-16 pb-20 md:pt-20 md:pb-32 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&auto=format&fit=crop"
             alt="Minimal Store"
             className="w-full h-full object-cover"
-          />
-          {/* Overlay for better text visibility */}
+          />      
           <div className="absolute inset-0 bg-black/30" />
         </div>
 

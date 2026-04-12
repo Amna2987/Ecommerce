@@ -64,6 +64,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       // Close modal and redirect to dashboard
       onClose();
       navigate('/dashboard');
+      setLoginData({email:'', password:'' })
 
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
@@ -106,23 +107,30 @@ const AuthModal = ({ isOpen, onClose }) => {
         // confirmPassword: '',
       });
       setError('Account created successfully! Please verify to login.');
-
+      
     } catch (err) {
       setError(err.message || 'Signup failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   // Switch between forms
   const switchToSignup = () => {
     setActiveForm('signup');
     setError('');
+    setLoginData({email:'', password:'' })
   };
-
+  
   const switchToLogin = () => {
     setActiveForm('login');
     setError('');
+    setSignupData({
+      username: '',
+      email: '',
+      password: '',
+      // confirmPassword: '',
+    });
   };
 
   return (

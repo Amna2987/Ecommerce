@@ -18,7 +18,7 @@ const Footer = () => {
               {[Facebook, Twitter, Instagram].map((Icon, index) => (
                 <a
                   key={index}
-                  href="#"
+                  // href="#"
                   className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
                 >
                   <Icon className="w-5 h-5" />
@@ -33,7 +33,7 @@ const Footer = () => {
               {['Home', 'Shop', 'About', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link
-                    to={`/${item.toLowerCase()}`}
+                    // to={`/${item.toLowerCase()}`}
                     className="text-gray-400 hover:text-white transition-colors duration-300"
                   >
                     {item}
@@ -49,7 +49,7 @@ const Footer = () => {
               {['Electronics', 'Fashion', 'Home', 'Beauty'].map((category) => (
                 <li key={category}>
                   <a
-                    href="#"
+                    // href="#"
                     className="text-gray-400 hover:text-white transition-colors duration-300"
                   >
                     {category}

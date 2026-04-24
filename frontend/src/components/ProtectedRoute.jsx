@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }) {
     
 
     if (!isLoggedIn){
-        toast.warn('Only admin can accessmmm')
+        toast.warn('Only admin can access')
          return <Navigate to={'/'} />
     }
     if (userData && userData.role !== 'admin') {

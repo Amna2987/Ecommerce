@@ -8,8 +8,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "socialcircle87@gmail.com",
-    pass: "ekbk mkyo vhkr eypl",
+    // user: "socialcircle87@gmail.com",
+    // pass: "ekbk mkyo vhkr eypl",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 }); 
 
@@ -46,11 +48,21 @@ exports.orderDataService = async (data, sub) => {
     },
   });
 
-   await transporter.sendMail({
-    to: data.email,
-    subject: "Your order has been placed",
-    html: `<h2>Your order has been placed. your order id is : ${orderId}</h2>`,
-  });
+  //  await transporter.sendMail({
+  //   to: data.email,
+  //   subject: "Your order has been placed",
+  //   html: `<h2>Your order has been placed. your order id is : ${orderId}</h2>`,
+  // });
+
+   try {
+    await transporter.sendMail({
+      to: data.email,
+      subject: "Your order has been placed",
+      html: `<h2>Your order has been placed. Your order ID is: ${orderId}</h2>`,
+    });
+  } catch (emailErr) {
+    console.error("Email sending failed (non-fatal):", emailErr.message);
+  }
 
   
   if (paymentMethod === "stripe") {

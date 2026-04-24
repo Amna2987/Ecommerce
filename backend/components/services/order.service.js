@@ -110,11 +110,22 @@ exports.orderConfirmService = async (sessionId) => {
   console.log('session order', order);
   
   order.paymentStatus = "PAID";
-  await transporter.sendMail({
+
+  // await transporter.sendMail({
+  //   to: order.shippingInfo.email,
+  //   subject: "Payment successful",
+  //   html: '<h2>Payment successful</h2>',
+  // });
+
+   try {
+   await transporter.sendMail({
     to: order.shippingInfo.email,
     subject: "Payment successful",
     html: '<h2>Payment successful</h2>',
   });
+  } catch (emailErr) {
+    console.error("Email sending failed (non-fatal):", emailErr.message);
+  }
   
   await order.save();
 

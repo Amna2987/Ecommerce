@@ -7,7 +7,8 @@ export const injectStore = (_store) => {
 }
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://ecommerce-production-7caf.up.railway.app/api",
+  // baseURL: "http://localhost:5000/api",
   withCredentials: true,
 });
 

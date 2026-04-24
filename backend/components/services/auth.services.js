@@ -9,8 +9,10 @@ let nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "socialcircle87@gmail.com",
-    pass: "ekbk mkyo vhkr eypl",
+    // user: "socialcircle87@gmail.com",
+    // pass: "ekbk mkyo vhkr eypl",
+    user: process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS,
   },
 }); 
 
@@ -50,12 +52,22 @@ exports.signupService = async (signupData) => {
   // token = Date.now().toLocaleString()
   // console.log('verify token', token);
 
-  const link = `http://localhost:5173/verify/${verificationToken}`;
-  await transporter.sendMail({
+  const link = `${process.env.CLIENT_ORIGIN}/verify/${verificationToken}`;
+  // const link = `http://localhost:5173/verify/${verificationToken}`;
+  // await transporter.sendMail({
+  //   to: email,
+  //   subject: "Verify your email",
+  //   html: `<h2>Email Verification</h2><a href="${link}">Verify Email</a>`,
+  // }); ///
+  try {
+    await transporter.sendMail({
     to: email,
     subject: "Verify your email",
     html: `<h2>Email Verification</h2><a href="${link}">Verify Email</a>`,
   }); ///
+  } catch (error) {
+    console.log('email not sent')
+  }
   return user;
 };
 

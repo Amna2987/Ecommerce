@@ -46,7 +46,13 @@ exports.loginController = async (req, res) => {
 exports.logoutController = async (req, res) => {
   // console.log('logout token', req.cookies);
 
-  res.clearCookie(COOKIE_NAME, { path: "/" });
+  // res.clearCookie(COOKIE_NAME, { path: "/" });
+  res.clearCookie(COOKIE_NAME, {
+    httpOnly: true,
+    secure: true,       
+    sameSite: "none",
+    path: "/",
+  });
   return success(res, "logout", { ok: true }, {}, 201);
 };
 exports.refreshController = async (req, res) => {
